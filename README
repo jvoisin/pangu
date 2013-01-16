@@ -1,0 +1,21 @@
+--       _____ _____ _____ _____ __ __
+(o_     |  _  |  _  |   | |   __|  |  |
+//\     |   __|     | | | |  |  |  |  |
+v_/_    |__|  |__|__|_|___|_____|_____|
+
+
+Pangu a a little toolset to mess around with debugging-related
+tools from the GNU project, and especially on GNU/Linux x86.
+
+Features:
+    - detection of GBD
+    - screwing elf headers in order to crash GNU tools
+    - crashing GDB
+
+Todo list:
+    - detection of breakpoints
+    - moar GDB crashes !
+
+License/author:
+    GPLv2 - jvoisin - dustri.org
+
