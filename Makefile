@@ -11,7 +11,10 @@ directory:
 
 prog: detection crash
 
-crash: header_screwer 10123
+crash: header_screwer 10123 signals
+
+signals:
+	$(CC) $(CFLAGS) ./crash/signals.c -o $(OUTPUT_DIR)$@
 
 10123:
 	$(CC) $(CFLAGS) ./crash/10123.c -o $(OUTPUT_DIR)$@
