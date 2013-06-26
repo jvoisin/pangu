@@ -48,7 +48,7 @@ int dbg_cmdline(){
 int dbg_ptrace(){
     if(ptrace(PTRACE_TRACEME, 0, 0, 0) == -1)
         return 1;
-    //TODO : detach ptrace
+    ptrace(PTRACE_DETACH, 0, 0, 0);
     return 0;
 }
 
