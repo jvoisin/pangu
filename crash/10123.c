@@ -1,9 +1,13 @@
 /*
  *Excerpt of the bug's description:
- GDB fails to interrupt the program being debugged if the program is blocking SIGINT.
+    GDB fails to interrupt the program being debugged if the program is blocking SIGINT.
 
- When using the sigwait function to retrieve signals, the program is expected to block them.  SIGINT is a commonly handled signal.  Any
- program using sigwait to retrieve signals and handling SIGINT this way will not be interruptible by GDB.
+    When using the sigwait function to retrieve signals,
+    the program is expected to block them.  SIGINT is a commonly handled signal.
+
+    Any program using sigwait to retrieve signals and handling SIGINT this way will not be interruptible by GDB.
+
+The dectection process used here is the SIGTRAP trick. Fell free to use another one.
  */
 
 #include <stddef.h>
@@ -11,22 +15,25 @@
 #include <unistd.h>
 #include <signal.h>
 
-int main(){
-    sigset_t sigs;
-    sigfillset(&sigs);
-    sigprocmask(SIG_SETMASK, &sigs, NULL);
+void no_gdb(int s){
+    signal(SIGTRAP, SIG_DFL);
+    printf("[*] No GBD detected\n");
+    /*
+     * Put your code here
+     */
+     _exit(0);
+}
 
-    if(fork()){
-        sleep(1); // to be sure that
-        kill(getppid(), SIGINT);
-        _exit(0);
-    }
-    while(1){
-        pause();
-        printf("[*] No GBD detected\n");
-        /*
-         * Put your code here
-         */
-    }
+int main(){
+    signal(SIGTRAP, &no_gdb);
+    sigset_t sigs;
+    sigemptyset(&sigs);
+    sigaddset(&sigs, SIGINT);
+    sigprocmask(SIG_BLOCK, &sigs, NULL);
+
+    raise(SIGTRAP);
+
+    printf("[*] GDB detected\n");
+    while(1);
     return 0;
 }
