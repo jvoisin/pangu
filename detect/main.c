@@ -6,7 +6,7 @@
 
 #include "gdb.h"
 #include "various.h"
-
+#include "env.h"
 
 int main(int argc, char** argv){
     unsigned int res = 0;
@@ -68,8 +68,7 @@ int main(int argc, char** argv){
     else
         printf("\n[ ] Everything seems fine\n");
 
-    
-    unsigned int res = 0;
+    res = 0;
     printf("\n\n");
     printf(".: GDB env detector :.\n\n");
 
