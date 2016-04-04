@@ -91,6 +91,5 @@ int main(int argc, char** argv){
         printf("\n[*] GDB detected\n");
     else
         printf("\n[ ] No GDB detected\n");
-    
     return 0;
 }
