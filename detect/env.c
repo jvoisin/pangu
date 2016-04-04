@@ -17,16 +17,21 @@ int gdb_lines() {
 
 int gdb_path() {
     char *gdb_path = getenv("_");
+    if (gdb_path == NULL) {
+      return 0;
+    }
     char *block_path = strtok(gdb_path, "/");
     char *str = NULL;
     while (block_path != NULL) {
-        str = block_path;
-        block_path = strtok(NULL, "/");
+       str = block_path;
+       block_path = strtok(NULL, "/");
     }
-    if(!strcmp(str,"gdb")) {
-        return 1;
-    } else {
-        return 0;
-    };
+    if (str == NULL) {
+      return 0;
+    }
+    else {
+      return !strcmp(str,"gdb");
+    }
+    
 }
 
