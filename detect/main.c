@@ -6,7 +6,7 @@
 
 #include "gdb.h"
 #include "various.h"
-
+#include "env.h"
 
 int main(int argc, char** argv){
     unsigned int res = 0;
@@ -68,5 +68,28 @@ int main(int argc, char** argv){
     else
         printf("\n[ ] Everything seems fine\n");
 
+    res = 0;
+    printf("\n\n");
+    printf(".: GDB env detector :.\n\n");
+
+    if(res += gdb_columns())
+        printf("[x] COLUMNS_ENV\n");
+    else
+        printf("[ ] COLUMNS_ENV\n");
+
+    if(res += gdb_lines())
+        printf("[x] LINES_ENV\n");
+    else
+        printf("[ ] LINES_ENV\n");
+
+    if(res += gdb_path())
+        printf("[x] GDB_ENV\n");
+    else
+        printf("[ ] GDB_ENV\n");
+
+    if(res)
+        printf("\n[*] GDB detected\n");
+    else
+        printf("\n[ ] No GDB detected\n");
     return 0;
 }
